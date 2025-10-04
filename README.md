@@ -1,4 +1,3 @@
-
 pico-embedded-projects/
 ├── .gitignore
 ├── README.md
