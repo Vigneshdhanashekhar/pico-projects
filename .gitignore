@@ -1,0 +1,49 @@
+# Ignore old project folders (not in projects/)
+my_first_project/
+my_second_project/
+
+# Ignore pico-sdk if you have it here
+pico-sdk/
+
+# Build directories (in all projects)
+**/build/
+**/cmake-build-*/
+
+# Compiled files
+*.elf
+*.bin
+*.hex
+*.uf2
+*.o
+*.d
+*.map
+*.dis
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+*.cmake
+!CMakeLists.txt
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+
+# Python cache (if using any Python scripts)
+__pycache__/
+*.pyc
