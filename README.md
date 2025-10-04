@@ -18,6 +18,7 @@ pico-embedded-projects/
 └── scripts/
     └── upload_pico.sh
 
+GIT PUSH: git push -u origin main 
 # Git Daily Workflow Guide
 
 Quick reference for daily Git operations in your Pico projects.
