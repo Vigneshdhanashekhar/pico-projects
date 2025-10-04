@@ -1,7 +1,7 @@
 # Ignore old project folders (not in projects/)
 my_first_project/
 my_second_project/
-
+git_token.txt
 # Ignore pico-sdk if you have it here
 pico-sdk/
 
