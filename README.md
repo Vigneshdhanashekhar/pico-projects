@@ -1,21 +1,21 @@
 pico-embedded-projects/
-├── .gitignore
-├── README.md
-├── projects/
-│   ├── 01_blink/
-│   │   ├── blink.c
-│   │   ├── CMakeLists.txt
-│   │   └── README.md
-│   ├── 02_button_input/
-│   │   ├── button.c
-│   │   ├── CMakeLists.txt
-│   │   └── README.md
-│   └── 03_pwm_led/
-│       ├── pwm_led.c
-│       ├── CMakeLists.txt
-│       └── README.md
-└── scripts/
-    └── upload_pico.sh
+├── .gitignore                # Git ignore file for excluding build artifacts and temporary files
+├── README.md                 # Project overview and documentation (this file)
+├── projects/                 # Directory containing individual Pico projects
+│   ├── 01_blink/            # Basic LED blinking project
+│   │   ├── blink.c          # Source code for LED blink
+│   │   ├── CMakeLists.txt   # CMake configuration for building the project
+│   │   └── README.md        # Project-specific documentation
+│   ├── 02_button_input/     # Button input handling project
+│   │   ├── button.c         # Source code for button input detection
+│   │   ├── CMakeLists.txt   # CMake configuration for building the project
+│   │   └── README.md        # Project-specific documentation
+│   └── 03_pwm_led/          # PWM-based LED brightness control project
+│       ├── pwm_led.c        # Source code for PWM LED control
+│       ├── CMakeLists.txt   # CMake configuration for building the project
+│       └── README.md        # Project-specific documentation
+└── scripts/                  # Utility scripts for project management
+    └── upload_pico.sh       # Bash script for uploading firmware to Raspberry Pi Pico
 
 GIT PUSH: git push -u origin main 
 # Git Daily Workflow Guide
