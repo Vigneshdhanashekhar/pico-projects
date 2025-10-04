@@ -1,17 +1,18 @@
 #include "pico/stdlib.h"
 
 int main() {
-    // Initialize GPIO for the onboard LED (GPIO 25 on Pico)
     const uint LED_PIN = 25;
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
     
-    // Main loop
+    int blink_count = 0;  // Add counter
+    
     while (true) {
-        gpio_put(LED_PIN, 1);  // LED on
-        sleep_ms(500);          // Wait 500ms
-        gpio_put(LED_PIN, 0);  // LED off
-        sleep_ms(500);          // Wait 500ms
+        blink_count++;              // Increment counter
+        gpio_put(LED_PIN, 1);       // ● Breakpoint with condition: blink_count == 5
+        sleep_ms(500);
+        gpio_put(LED_PIN, 0);
+        sleep_ms(500);
     }
     
     return 0;
