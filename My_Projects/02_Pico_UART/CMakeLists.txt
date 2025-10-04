@@ -15,18 +15,18 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 # Create executable from source file
-add_executable(uart_comm
+add_executable(02_Pico_UART
     uart_comm.c
 )
 
 # Link necessary libraries
-target_link_libraries(uart_comm
+target_link_libraries(02_Pico_UART
     pico_stdlib
 )
 
 # Enable USB output, disable UART output
-pico_enable_stdio_usb(uart_comm 1)
-pico_enable_stdio_uart(uart_comm 1)
+pico_enable_stdio_usb(02_Pico_UART 1)
+pico_enable_stdio_uart(02_Pico_UART 1)
 
 # Create map/bin/hex/uf2 files
-pico_add_extra_outputs(uart_comm)
+pico_add_extra_outputs(02_Pico_UART)
