@@ -28,7 +28,7 @@ GIT PUSH: git push -u origin main
 # Git Daily Workflow Guide
 
 Quick reference for daily Git operations in your Pico projects.
-
+```
 ---
 
 ## 📋 Daily Development Workflow
