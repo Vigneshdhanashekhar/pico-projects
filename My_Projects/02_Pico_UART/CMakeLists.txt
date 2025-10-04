@@ -25,8 +25,8 @@ target_link_libraries(uart_comm
 )
 
 # Enable USB output, disable UART output
-pico_enable_stdio_usb(uart_comm 1)
-pico_enable_stdio_uart(uart_comm 0)
+pico_enable_stdio_usb(uart_comm 0)
+pico_enable_stdio_uart(uart_comm 1)
 
 # Create map/bin/hex/uf2 files
 pico_add_extra_outputs(uart_comm)
