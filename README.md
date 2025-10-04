@@ -1,3 +1,10 @@
+# Pico Embedded Projects
+
+This repository contains a collection of embedded C projects developed for the **Raspberry Pi Pico** microcontroller, showcasing skills in embedded systems programming, hardware interfacing, and project organization. These projects are designed to demonstrate practical applications in automotive and IoT contexts, leveraging the Pico's capabilities for sensor integration, motor control, and real-time systems.
+
+## Directory Structure
+
+```plaintext
 pico-embedded-projects/
 ├── .gitignore                # Git ignore file for excluding build artifacts and temporary files
 ├── README.md                 # Project overview and documentation (this file)
