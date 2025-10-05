@@ -24,19 +24,30 @@ int main() {
     sleep_ms(10000);
     printf("UART Echo Program Started\n");
     printf("Waiting for data at 115200 baud...\n\n");
-    
+    char buffer[256];  // Buffer to store incoming string
+    int index = 0;
     while (true) {
-        // Check if data is available from UART
-        if (uart_is_readable(UART_ID)) {
+    if (uart_is_readable(UART_ID)) {
             // Read one character from UART
             char c = uart_getc(UART_ID);
-            sleep_ms(1000);
-            printf("\n\n\n");
-            // Print the received character to console
-            printf("%c", c);
-            fflush(stdout); // Ensure immediate output
+            
+            // Echo back to UART (so you see it in TeraTerm)
+            // uart_putc(UART_ID, c);
+            
+            // Check for newline or carriage return (Enter key)
+            if (c == '\n' || c == '\r') {
+                if (index > 0) {  // Only print if we have data
+                    buffer[index] = '\0';  // Null-terminate the string
+                    printf("\n\n\nReceived string: %s\n", buffer);
+                    sleep_ms(1000);
+                    fflush(stdout);
+                    index = 0;  // Reset buffer for next input
+                }
+            }
+            else if (index < 255) {  // Prevent buffer overflow
+                buffer[index++] = c;  // Add character to buffer
+            }
         }
     }
-    
     return 0;
 }
