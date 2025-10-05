@@ -11,8 +11,14 @@ project(my_first_project C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+# # IMPORTANT: Set build type to Debug and disable optimization
+# set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_C_FLAGS_DEBUG "-O0 -g3")
+# set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3")
+
 # Initialize the Pico SDK
 pico_sdk_init()
+
 
 # Create executable from source file
 add_executable(03_Pico_NumSwap
