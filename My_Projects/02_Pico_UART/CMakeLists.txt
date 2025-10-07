@@ -1,6 +1,9 @@
 # Minimum CMake version required
 cmake_minimum_required(VERSION 3.13)
 
+# Set custom UART baud rate (BEFORE pico_sdk_init())
+# add_compile_definitions(PICO_DEFAULT_UART_BAUD_RATE=9600)
+
 # Include the Pico SDK
 include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 

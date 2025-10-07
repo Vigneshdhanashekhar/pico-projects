@@ -1,7 +1,7 @@
 #include "pico/stdlib.h"
 #include "hardware/uart.h"
 #include <stdio.h>
-
+#include <string.h>
 #define UART_ID uart0
 #define BAUD_RATE 115200
 #define UART_TX_PIN 0
@@ -39,10 +39,10 @@ int main() {
                 if (index > 0) {  // Only print if we have data
                     buffer[index] = '\0';  // Null-terminate the string
                     printf("\n\n\nReceived string: %s\n", buffer);
-                    if(buffer=="Hello"){
+                    if(strcmp(buffer,"Hello")==0){
                         printf("\nHello word is being detected");
                     }
-                    // sleep_ms(1000);
+                    sleep_ms(1000);
                     fflush(stdout);
                     index = 0;  // Reset buffer for next input
                 }
