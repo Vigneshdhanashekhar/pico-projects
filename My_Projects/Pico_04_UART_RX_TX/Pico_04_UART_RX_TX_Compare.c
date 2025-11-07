@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 #define UART_ID uart0
-#define BAUD_RATE 115200
+#define BAUD_RATE 9600
 #define UART_TX_PIN 0
 #define UART_RX_PIN 1
 
 int main() {
     // Initialize stdio for console output (USB)
-    stdio_init_all();
+    // stdio_init_all();
     
     // Initialize UART with 115200 baud rate
     uart_init(UART_ID, BAUD_RATE);
@@ -19,8 +19,9 @@ int main() {
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
     
     // Configure UART settings (optional, but recommended)
-    uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE);
-    uart_set_fifo_enabled(UART_ID, true);
+    // uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE);
+    // uart_set_fifo_enabled(UART_ID, true);
+    stdio_uart_init_full(UART_ID, BAUD_RATE, UART_TX_PIN, UART_RX_PIN);
     sleep_ms(10000);
     printf("UART Echo Program Started\n");
     printf("Waiting for data at 115200 baud...\n\n");
