@@ -21,7 +21,7 @@ pico_sdk_init()
 
 # Create executable from source file
 add_executable(Pico_04_UART_RX_TX
-    Pico_04_UART_RX_TX_print.c
+    Pico_04_UART_RX_TX_Scanf.c
 )
 
 # Link necessary libraries
