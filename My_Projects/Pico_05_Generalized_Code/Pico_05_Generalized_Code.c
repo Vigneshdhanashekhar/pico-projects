@@ -25,16 +25,19 @@ char buffer[BUFFER_SIZE];       // Main input buffer
 int buffer_index = 0;           // Current position in buffer
 
 //My Variables
-int current_value = 0;//to check
+int num1=0;
+int num2=0;
 /******************************************************************************
  * FUNCTION PROTOTYPES - DECLARE YOUR FUNCTIONS HERE
  ******************************************************************************/
 void uart_communication_init(void);
 void process_command(char *cmd);
+int get_user_input_int(char *prompt);
+float get_user_input_float(char *prompt);
+void get_user_input_string(char *prompt, char *output_buffer, int max_length);
 
 // Add your function prototypes below this line
 // ============================================================================
-
 
 
 // ============================================================================
@@ -69,7 +72,7 @@ void uart_communication_init(void) {
 }
 
 /******************************************************************************
- * Logging function - MODIFY THIS SECTION FOR YOUR APPLICATION
+ * General function - BASIC FUNCTION NEEDES TO GET INPUT AND PRINT DATA
  ******************************************************************************/
 void log_error(char *prompt){
     printf("[ERROR] command: '%s'\n", prompt);
@@ -104,6 +107,113 @@ void clear_console(void){
     printf("\033[2J\033[H");
     fflush(stdout);
 }
+
+// Helper function to get integer input from user
+int get_user_input_int(char *prompt) {
+    static char input_buffer[32];
+    static int input_index = 0;
+    static bool waiting_for_input = false;
+    
+    if (!waiting_for_input) {
+        // First call - display prompt
+        log_info_string(prompt);
+        waiting_for_input = true;
+        input_index = 0;
+    }
+    
+    // Wait and collect input
+    while (true) {
+        if (uart_is_readable(UART_ID)) {
+            char c = uart_getc(UART_ID);
+            
+            if (c == '\n' || c == '\r') {
+                if (input_index > 0) {
+                    input_buffer[input_index] = '\0';
+                    int value = atoi(input_buffer);
+                    waiting_for_input = false;
+                    input_index = 0;
+                    return value;
+                }
+            }
+            else if (input_index < 31) {
+                input_buffer[input_index++] = c;
+            }
+        }
+        sleep_ms(10);  // Small delay to prevent busy-waiting
+    }
+}
+
+// Helper function to get float input from user
+float get_user_input_float(char *prompt) {
+    static char input_buffer[32];
+    static int input_index = 0;
+    static bool waiting_for_input = false;
+    
+    if (!waiting_for_input) {
+        // First call - display prompt
+        log_info_string(prompt);
+        waiting_for_input = true;
+        input_index = 0;
+    }
+    
+    // Wait and collect input
+    while (true) {
+        if (uart_is_readable(UART_ID)) {
+            char c = uart_getc(UART_ID);
+            
+            if (c == '\n' || c == '\r') {
+                if (input_index > 0) {
+                    input_buffer[input_index] = '\0';
+                    float value = atof(input_buffer);  // Use atof for float conversion
+                    waiting_for_input = false;
+                    input_index = 0;
+                    return value;
+                }
+            }
+            else if (input_index < 31) {
+                input_buffer[input_index++] = c;
+            }
+        }
+        sleep_ms(10);  // Small delay to prevent busy-waiting
+    }
+}
+
+// Helper function to get string input from user
+void get_user_input_string(char *prompt, char *output_buffer, int max_length) {
+    static char input_buffer[BUFFER_SIZE];
+    static int input_index = 0;
+    static bool waiting_for_input = false;
+    
+    if (!waiting_for_input) {
+        // First call - display prompt
+        log_info_string(prompt);
+        waiting_for_input = true;
+        input_index = 0;
+    }
+    
+    // Wait and collect input
+    while (true) {
+        if (uart_is_readable(UART_ID)) {
+            char c = uart_getc(UART_ID);
+            
+            if (c == '\n' || c == '\r') {
+                if (input_index > 0) {
+                    input_buffer[input_index] = '\0';
+                    // Copy to output buffer with length check
+                    strncpy(output_buffer, input_buffer, max_length - 1);
+                    output_buffer[max_length - 1] = '\0';  // Ensure null termination
+                    waiting_for_input = false;
+                    input_index = 0;
+                    return;
+                }
+            }
+            else if (input_index < BUFFER_SIZE - 1) {
+                input_buffer[input_index++] = c;
+            }
+        }
+        sleep_ms(10);  // Small delay to prevent busy-waiting
+    }
+}
 /******************************************************************************
  * COMMAND PROCESSING - MODIFY THIS SECTION FOR YOUR APPLICATION
  ******************************************************************************/
@@ -114,10 +224,8 @@ void process_command(char *cmd) {
     printf("Received: %s\n", cmd);
     
     // ========================================================================
-    // ### AREA TO WORK - ADD YOUR COMMAND HANDLING CODE HERE ###
+    // ### AREA NOT TO WORK - GENERIC COMMMAND HANDLING CODE ###
     // ========================================================================
-    
-    // Example command structure (remove or modify as needed):
     
     if (strcmp(cmd, "help") == 0) {
         printf("Available commands:\n");
@@ -136,30 +244,19 @@ void process_command(char *cmd) {
     }
     else if (strcmp(cmd, "clear") == 0 || strcmp(cmd, "cls") == 0) {
         clear_console();
-        printf("Console cleared.\n");
-    }
-    // Add more command handlers below
-    else if (strcmp(cmd, " ") == 0) {
-        // Ignore empty commands
-        log_system_status(" Void Commmand Entered.");
-    }
-    
+        log_system_status("Console cleared.\n");
+    }   
+
+    // ========================================================================
+    // Add your custom command handling here:
+    // ========================================================================
+
+    //Default Unknown Command handler
     else {
         log_error("Unknown command");
-        printf("\nType 'help' for available commands\n");
+        log_system_status("\nType 'help' for available commands\n");
     }
-    
-    
-    // Add your custom command handling here:
-    
-    
-    
-    
-    
-    // ========================================================================
-    // ### END OF WORK AREA ###
-    // ========================================================================
-    
+
     fflush(stdout);  // Ensure output is sent immediately
 }
 
@@ -170,14 +267,7 @@ void process_command(char *cmd) {
 // ### AREA TO WORK - ADD YOUR FUNCTION IMPLEMENTATIONS HERE ###
 // ============================================================================
 
-// Example function structure:
-/*
-void my_custom_function(void) {
-    printf("Executing custom function...\n");
-    // Your code here
-}
-*/
-
+// Function to Swap two Numbers.
 
 
 
@@ -238,10 +328,7 @@ int main() {
                 buffer_index = 0;  // Reset buffer
             }
         }
-
-        log_info_int(current_value);
-        sleep_ms(100);
-        current_value+=1;
+        sleep_ms(10);
         // ====================================================================
         // ### OPTIONAL: ADD BACKGROUND TASKS HERE ###
         // ====================================================================
