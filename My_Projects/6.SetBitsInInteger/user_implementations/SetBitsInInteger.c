@@ -7,36 +7,34 @@
 /******************************************************************************
  * USER VARIABLES
  ******************************************************************************/
-char string_tobe_reversed[100];
-char *ptr_left;
-char *ptr_right;
-char tempstr=' ';
-
+int num_to_find_setbits;
+int temp=0;
+int count=0;
 /******************************************************************************
  * USER FUNCTION PROTOTYPES
  ******************************************************************************/
-void stringreverse();
+void setbitsint();
 
 /******************************************************************************
  * USER FUNCTIONS IMPLEMENTATION
  ******************************************************************************/
 
 // Function to check whether a number is prime or not
-void stringreverse(){
-    get_user_input_string("Enter the string to be reversed: ",string_tobe_reversed,sizeof(string_tobe_reversed));
-    ptr_left = string_tobe_reversed;
-    ptr_right = string_tobe_reversed + strlen(string_tobe_reversed)-1;
-    while (ptr_left<ptr_right)
-    {
-        tempstr=*ptr_left;
-        *ptr_left=*ptr_right;
-        *ptr_right=tempstr;
-        ptr_left++;
-        ptr_right--;
+void setbitsint(){
+    num_to_find_setbits= get_user_input_int("Enter the Integer: ");
+    log_info_string("You entered :");
+    log_info_int(num_to_find_setbits);
+    temp=num_to_find_setbits;
+    while(temp>0){
+        int bit_val=temp%2;
+        if (bit_val==1){
+            count++;
+        }
+        temp=temp/2;
     }
-    log_info_string("Reversed String is ");
-    log_info_string(string_tobe_reversed);
-    
+    log_info_string("The no of setbits is: ");
+    log_info_int(count);
+    count=0;
 }
 
 
@@ -46,11 +44,11 @@ void stringreverse(){
 void handle_user_commands(char *cmd) {
     if (strcmp(cmd, "help") == 0) {
         // Print user-specific help
-        printf("  stringreverse -- To reverse a string \n");
+        printf("  setbitsint -- To find the no of bits set in a integer \n");
         return;
     }
-    else if (strcmp(cmd, "stringreverse") == 0) {
-        stringreverse();
+    else if (strcmp(cmd, "setbitsint") == 0) {
+        setbitsint();
     }
     else {
         log_error("Unknown command");

@@ -19,24 +19,24 @@ pico_sdk_init()
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 
 # Create executable from all source files
-add_executable(StringRev
+add_executable(SetBitsInInteger
     src/main.c
     src/uart_comm.c
     src/logger.c
     src/user_input.c
-    user_implementations/StringReverse.c
+    user_implementations/SetBitsInInteger.c
     # Add more user implementation files here as needed
     # user_implementations/additional_functions.c
 )
 
 # Link necessary libraries
-target_link_libraries(StringRev
+target_link_libraries(SetBitsInInteger
     pico_stdlib
 )
 
 # Enable USB output, disable UART output
-pico_enable_stdio_usb(StringRev 0)
-pico_enable_stdio_uart(StringRev 1)
+pico_enable_stdio_usb(SetBitsInInteger 0)
+pico_enable_stdio_uart(SetBitsInInteger 1)
 
 # Create map/bin/hex/uf2 files
-pico_add_extra_outputs(StringRev)
+pico_add_extra_outputs(SetBitsInInteger)
