@@ -7,34 +7,32 @@
 /******************************************************************************
  * USER VARIABLES
  ******************************************************************************/
-int num_to_find_setbits;
-int temp=0;
-int count=0;
+int num1=0;
+int num2=0;
 /******************************************************************************
  * USER FUNCTION PROTOTYPES
  ******************************************************************************/
-void setbitsint();
+void gcd2num();
 
 /******************************************************************************
  * USER FUNCTIONS IMPLEMENTATION
  ******************************************************************************/
 
 // Function to check whether a number is prime or not
-void setbitsint(){
-    num_to_find_setbits= get_user_input_int("Enter the Integer: ");
-    log_info_string("You entered :");
-    log_info_int(num_to_find_setbits);
-    temp=num_to_find_setbits;
-    while(temp>0){
-        int bit_val=temp%2;
-        if (bit_val==1){
-            count++;
-        }
-        temp=temp/2;
+void gcd2num(){
+    num1=get_user_input_int("\nEnter the Number 1:");
+    num2=get_user_input_int("\nEnter the Number 2:");
+    log_info_string("\nNum1: ");
+    log_info_int(num1);
+    log_info_string("\nNum2: ");
+    log_info_int(num2);
+    while(num2!=0){
+        int temp=num1;
+        num1=num2;
+        num2=temp%num2;
     }
-    log_info_string("The no of setbits is: ");
-    log_info_int(count);
-    count=0;
+    log_info_string("GCD is: ");
+    log_info_int(num1);
 }
 
 
@@ -44,11 +42,11 @@ void setbitsint(){
 void handle_user_commands(char *cmd) {
     if (strcmp(cmd, "help") == 0) {
         // Print user-specific help
-        printf("  setbitsint -- To find the no of bits set in a integer \n");
+        printf("  gcd2num -- To calculate gcd of 2 numbers \n");
         return;
     }
-    else if (strcmp(cmd, "setbitsint") == 0) {
-        setbitsint();
+    else if (strcmp(cmd, "gcd2num") == 0) {
+        gcd2num();
     }
     else {
         log_error("Unknown command");
